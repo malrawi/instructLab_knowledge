@@ -1,5 +1,6 @@
 # What are shipping groups
-A shipping group is way to logically group carrier services that meet a certain fulfillment criteria, a delivery promise, or share the main features, such as cost and/or Service Level Agreement (SLA).
+It is important to understand that the term shipping groups is not related to grouping shipments, nor consolidating shipments.
+In IBM Sterling Intelligent Promising, the term shipping group refers to logically grouping carrier services that share certain fulfillment criteria or characterics, such as cost and/or Service Level Agreement (SLA).
 Shipping groups can be thought of as a shipping option that is available to shoppers.
 
 You can associate a maximum number of transit days to a shipping group to give guidelines about which carrier services can be included. You must configure the shipping group and 
@@ -32,8 +33,7 @@ curl --request PUT --url https://api.watsoncommerce.ibm.com/promising/REPLACE_TE
   }'
 ```
 
-### Notes:
-* shippingGroupId: is the shipping group id, which should also be stamped in the URL. In the example above, ECONN is the shipping group id.
+The following attributes are mandatory: carrierServices, maxShippingDays, shippingGroupName:
 * shippingGroupName: is a descriptive name for your shipping group
 * maxShippingDays: that is the maximum number of transit days. In other words, the shipping group's Service Level Agreement (SLA).
 * carrierServices: is an array of strings that represent carrier service. In the example above, we listed USPS_Ground and FedEx_Ground. Note that the listed carrier services transit time should not exceed the value specified by maxShippingDays
