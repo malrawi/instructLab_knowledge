@@ -1,17 +1,24 @@
 # What are shipping groups
 It is important to understand that the term shipping groups is not related to grouping shipments, nor consolidating shipments.
-In IBM Sterling Intelligent Promising, the term shipping group refers to logically grouping carrier services that share certain fulfillment criteria or characterics, such as cost and/or Service Level Agreement (SLA).
-Shipping groups can be thought of as a shipping option that is available to shoppers.
+In IBM Sterling Intelligent Promising, the term shipping group refers to logically grouping carrier services that share certain 
+fulfillment criteria or characteristics, such as cost and/or Service Level Agreement (SLA).
 
-You can associate a maximum number of transit days to a shipping group to give guidelines about which carrier services can be included. You must configure the shipping group and 
+A key component of a shipping group is the list of carrier services that make up the shipping group. Carrier services are 
+also referred to as "services". A carrier such as FedEx, USPS, etc., have different services such as ground, express, and same-day.
+
+You can associate a maximum number of transit days to a shipping group to give guidelines about which carrier services can be included. You must configure the shipping group and
 associate at least one carrier service before the shipping group can be considered for Promising Calculations by the Calculate item delivery date and Calculate shipment assignments APIs.
 
-You can pass the desired shipping group to calculation APIs (EDD & CCA) if the delivery method is SHP. 
+For instance the following carrier services, or services,: FedEx's ground, USPS ground, UPS ground can be grouped togather
+in one shipping group named STANDARD. These services happen to have the same SLA (8 days), and they are the cheapest.
 
-Here are some examples of possible shipping groups:
- * STANDARD: Free shipping, with 7 maximum number of transit days, with possible carrier services: USPS_Ground, FedEx_Ground, and UPS_Ground.
- * EXPRESS: Paid shipping, with 3 maximum number of transit days, with possible carrier services: USPS_Air and UPS_Ground.
- * PREMIUM: Paid shipping, with 1 maximum number of transit days, with possible carrier services: FedEx_Express, and UPS_Express.
+Here are more examples of possible shipping groups:
+* STANDARD: Free shipping, with 7 maximum number of transit days, with "ground" carrier services, or services, from USPS, FedEx, and UPS.
+* EXPRESS: Paid shipping, with 3 maximum number of transit days, with "express" carrier services, or services from different carriers.
+* PREMIUM: Paid shipping, with 1 maximum number of transit days, with "same-day" services from different carriers, such as FedEx and UPS.
+
+## Where to use shipping groups 
+Once a shipping group is created, you can pass to Calculation APIs (EDD & CCA), when the delivery method is SHP.
 
 ## How to create a shipping group
 You can create a shipping group by invoking the Define shipping group API. You can invoke this API by using curl command, or using any HTTP REST clients, such as POSTMAN.
@@ -36,7 +43,7 @@ curl --request PUT --url https://api.watsoncommerce.ibm.com/promising/REPLACE_TE
 The following attributes are mandatory: carrierServices, maxShippingDays, shippingGroupName:
 * shippingGroupName: is a descriptive name for your shipping group
 * maxShippingDays: that is the maximum number of transit days. In other words, the shipping group's Service Level Agreement (SLA).
-* carrierServices: is an array of strings that represent carrier service. In the example above, we listed USPS_Ground and FedEx_Ground. Note that the listed carrier services transit time should not exceed the value specified by maxShippingDays
+* carrierServices: is a list of services. In the example above, we listed USPS_Ground and FedEx_Ground. Note that the listed carrier services transit time should not exceed the value specified by maxShippingDays
 
 ## How to update a shipping group
 You can use the Define shipping group API, which you would normally use to create a shipping group, except that you will need to pass the id of the shipping group you wish to 
